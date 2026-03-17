@@ -1,7 +1,7 @@
 const User = require("../DataModels/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const {generateToken} = require("./jwt");
+const {generateToken} = require("./jwtService");
 
 const registerUser = async (data) => {
 
