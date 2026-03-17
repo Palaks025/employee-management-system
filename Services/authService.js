@@ -1,6 +1,7 @@
 const User = require("../DataModels/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const {generateToken} = require("./jwt");
 
 const registerUser = async (data) => {
 
@@ -29,26 +30,13 @@ const loginUser = async (email,password)=>{
         throw new Error("Password is incorrect");
     }
 
-    const token = jwt.sign(
-        { id: user._id },
-        process.env.JWT_SECRET,
-        { expiresIn:"1h" }
-    );
+    const token = generateToken({email:email});
 
     return token;
 };
 
 
-function verifyToken(token) {
-    try {
-        return jwt.verify(token, JWT_SECRET);
-    } catch (err) {
-        return null;
-    }
-}
-
 module.exports = {
     registerUser,
-    loginUser,
-    verifyToken
+    loginUser
 };
